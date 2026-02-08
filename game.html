@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Forever Valentine ❤️</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #ffc0cb; /* Lovely pink background */
+            overflow: hidden;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Falling Red Hearts Animation */
+        .heart {
+            position: absolute;
+            color: #ff0000;
+            font-size: 20px;
+            top: -20px;
+            z-index: 0;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(100vh) rotate(360deg); }
+        }
+
+        #game-container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 50px;
+            border-radius: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            z-index: 10;
+            max-width: 400px;
+            border: 5px solid #ff4d6d;
+        }
+
+        h1 { color: #d63384; font-size: 28px; margin-bottom: 30px; }
+
+        .btn-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        #yesBtn {
+            background-color: #ff4d6d;
+            color: white;
+            border: none;
+            padding: 20px 60px;
+            font-size: 28px; /* Bigger Yes option */
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+            font-weight: bold;
+        }
+
+        #noBtn {
+            background-color: #f8f9fa;
+            color: #888;
+            border: 2px solid #ddd;
+            padding: 10px 25px; /* Smaller No option */
+            font-size: 14px;
+            border-radius: 50px;
+            cursor: pointer;
+        }
+
+        #yesBtn:hover { background-color: #ff758f; transform: scale(1.1); }
+    </style>
+</head>
+<body>
+
+<div id="game-container">
+    <h1 id="question">Do you like me?</h1>
+    <div class="btn-container">
+        <button id="yesBtn" onclick="nextQuestion()">YES!</button>
+        <button id="noBtn" onclick="showError()">no</button>
+    </div>
+</div>
+
+<script>
+    const questions = [
+        "Do you like me?",
+        "Do you like to spend time with me?",
+        "Will you be my forever valentine??"
+    ];
+    let currentStep = 0;
+
+    function nextQuestion() {
+        currentStep++;
+        if (currentStep < questions.length) {
+            document.getElementById('question').innerText = questions[currentStep];
+        } else {
+            // Final success message
+            document.getElementById('game-container').innerHTML = 
+                "<h1 style='font-size: 40px;'>❤️</h1>" +
+                "<h1>Yey! He said yes! I love you!</h1>" +
+                "<p style='color: #ff4d6d; font-size: 20px;'>Forever & Always</p>";
+        }
+    }
+
+    function showError() {
+        // Show error for "No"
+        alert("Error: Access Denied! Please select the correct answer. ❤️");
+    }
+
+    // Script to generate continuous falling red hearts
+    setInterval(() => {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.innerHTML = '❤️';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+        heart.style.opacity = Math.random();
+        document.body.appendChild(heart);
+        
+        // Remove heart after it falls to save memory
+        setTimeout(() => heart.remove(), 5000);
+    }, 200);
+</script>
+
+</body>
+</html>
